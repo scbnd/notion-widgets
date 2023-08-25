@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Countdown</title>
+</head>
+<body>
+  <div class="container">
+    <span class="days" id="daysBeforeChristmas"></span>
+    <span class="text-sm" id="note"></span>
+  </div>
+  <style>
+    * {
+      box-sizing: border-box;
+      padding: 0;
+      margin: 0;
+    }
+    .container {
+      font-family: 'Courier New', Courier, monospace;
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 10px 15px 15px;
+      background-color: #fff;
+      border-radius: 5px;
+      border-top: 15px solid red;
+    }
+    .text-sm {
+      font-size: 5vw;
+      font-weight: 700;
+      color: #999;
+    }
+    .days {
+      font-size: 20vw;
+      font-weight: 900;
+    }
+  </style>
+  <script>
+    function calcDate() {
+      const one_day = 1000 * 60 * 60 * 24;
+      const today = new Date();
+      const yearNow = new Date().getFullYear();
+      let christmas = new Date(yearNow, 11, 25);
+      let note = "days left";
+
+      if (today.getMonth() == 11 && today.getDate() > 25) {
+        christmas.setFullYear(today.getFullYear + 1);
+      }
+
+      const daysLeft = Math.ceil((christmas.getTime() - today.getTime())/ (one_day));
+
+      if (daysLeft < 2) {
+        note = "day left";
+      }
+
+      document.querySelector('#daysBeforeChristmas').textContent = daysLeft;
+      document.querySelector('#note').textContent = note;
+    }
+
+    document.addEventListener("DOMContentLoaded", function(event) {
+      calcDate();
+    });
+  </script>
+</body>
+</html>
